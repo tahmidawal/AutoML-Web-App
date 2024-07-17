@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-import ydata_profiling
 from streamlit_pandas_profiling import st_profile_report
 import os
 from pycaret.classification import setup, compare_models, pull, save_model, load_model
@@ -12,7 +11,7 @@ if os.path.exists("dataset.csv"):
 with st.sidebar:
     st.image("https://www.onepointltd.com/wp-content/uploads/2019/12/shutterstock_1166533285-Converted-02.png")
     st.title("AutoML")
-    choice = st.radio("Select the task", ["Upload", "Profiling", "Modeling", "Download"])
+    choice = st.radio("Select the task", ["Upload", "Modeling", "Download"])
     st.info("This project application helps you build and explore your data")
     
     
@@ -24,10 +23,7 @@ if choice == "Upload":
         df.to_csv("dataset.csv", index=None)
         st.dataframe(df)
 
-if choice == "Profiling":
-    st.title("Exploratory Data Analysis")
-    profile = ydata_profiling.ProfileReport(df, explorative=True)
-    st_profile_report(profile)
+
 
 if choice == "Modeling":
     chosen_target = st.selectbox("Select the target column", df.columns)
